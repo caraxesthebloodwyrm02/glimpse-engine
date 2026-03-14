@@ -43,8 +43,9 @@ npm-debug.log*
 Thumbs.db
 .DS_Store
 
-# Windsurf traces (keep history, ignore large traces)
+# Glimpse traces and history
 .glimpse-traces.jsonl
+.glimpse-history.json
 
 # Local data files
 data/

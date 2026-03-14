@@ -1,0 +1,46 @@
+{
+  "contractId": "TDC-20260314-A1B2",
+  "title": "Fix login timeout bug",
+  "description": "Resolve authentication timeout issue in login flow that causes users to be logged out unexpectedly after 5 minutes of inactivity",
+  "priority": "critical",
+  "effort": "small",
+  "impact": "high",
+  "deadline": "2026-03-15",
+  "domain": "backend",
+  "tags": ["bug", "auth", "urgent", "security"],
+  "delegator": {
+    "name": "System",
+    "role": "glimpse-recommend",
+    "contact": null
+  },
+  "delegate": {
+    "name": "Developer Agent",
+    "role": "backend-engineer",
+    "agentId": "agent-be-001"
+  },
+  "dependencies": [],
+  "criticalPath": [
+    "Fix login timeout bug",
+    "Migrate to new auth provider"
+  ],
+  "expectedOutput": {
+    "format": "code",
+    "location": "src/auth/",
+    "acceptanceCriteria": [
+      "Login session persists for configured duration",
+      "Users are not logged out unexpectedly",
+      "Token refresh works correctly",
+      "Existing tests pass"
+    ]
+  },
+  "status": "pending",
+  "createdAt": "2026-03-14T16:14:00Z",
+  "glimpseSignal": {
+    "scenario": "recommend",
+    "confidence": 0,
+    "calibration": {
+      "suggested": true,
+      "severity": "moderate"
+    }
+  }
+}

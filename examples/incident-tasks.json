@@ -1,0 +1,62 @@
+[
+  {
+    "task": "Fix production database deadlock",
+    "priority": "critical",
+    "effort": "medium",
+    "deadline": "2026-03-14",
+    "domain": "backend",
+    "blockedBy": null,
+    "impact": "critical",
+    "tags": ["bug", "production", "database"]
+  },
+  {
+    "task": "Deploy hotfix to production",
+    "priority": "critical",
+    "effort": "small",
+    "deadline": "2026-03-14",
+    "domain": "devops",
+    "blockedBy": "Fix production database deadlock",
+    "impact": "critical",
+    "tags": ["deployment", "production", "urgent"]
+  },
+  {
+    "task": "Write post-mortem report",
+    "priority": "high",
+    "effort": "small",
+    "deadline": "2026-03-16",
+    "domain": "process",
+    "blockedBy": "Deploy hotfix to production",
+    "impact": "medium",
+    "tags": ["documentation", "process", "incident"]
+  },
+  {
+    "task": "Add database connection pooling",
+    "priority": "medium",
+    "effort": "large",
+    "deadline": "2026-03-22",
+    "domain": "backend",
+    "blockedBy": null,
+    "impact": "high",
+    "tags": ["performance", "database", "infrastructure"]
+  },
+  {
+    "task": "Update runbook with new procedure",
+    "priority": "low",
+    "effort": "small",
+    "deadline": "2026-03-20",
+    "domain": "docs",
+    "blockedBy": "Write post-mortem report",
+    "impact": "medium",
+    "tags": ["documentation", "runbook", "process"]
+  },
+  {
+    "task": "Schedule team incident review meeting",
+    "priority": "medium",
+    "effort": "tiny",
+    "deadline": "2026-03-17",
+    "domain": "process",
+    "blockedBy": "Write post-mortem report",
+    "impact": "medium",
+    "tags": ["meeting", "team", "process"]
+  }
+]

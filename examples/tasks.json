@@ -1,0 +1,72 @@
+[
+  {
+    "task": "Fix login timeout bug",
+    "priority": "critical",
+    "effort": "small",
+    "deadline": "2026-03-15",
+    "domain": "backend",
+    "blockedBy": null,
+    "impact": "high",
+    "tags": ["bug", "auth", "urgent"]
+  },
+  {
+    "task": "Implement dashboard charts",
+    "priority": "high",
+    "effort": "large",
+    "deadline": "2026-03-20",
+    "domain": "frontend",
+    "blockedBy": null,
+    "impact": "medium",
+    "tags": ["feature", "visualization", "ui"]
+  },
+  {
+    "task": "Write API documentation",
+    "priority": "medium",
+    "effort": "medium",
+    "deadline": "2026-03-25",
+    "domain": "docs",
+    "blockedBy": null,
+    "impact": "medium",
+    "tags": ["docs", "api"]
+  },
+  {
+    "task": "Migrate to new auth provider",
+    "priority": "high",
+    "effort": "large",
+    "deadline": "2026-03-22",
+    "domain": "backend",
+    "blockedBy": "Fix login timeout bug",
+    "impact": "high",
+    "tags": ["migration", "auth", "infrastructure"]
+  },
+  {
+    "task": "Set up monitoring alerts",
+    "priority": "medium",
+    "effort": "small",
+    "deadline": null,
+    "domain": "devops",
+    "blockedBy": null,
+    "impact": "medium",
+    "tags": ["monitoring", "devops", "reliability"]
+  },
+  {
+    "task": "Refactor notification service",
+    "priority": "low",
+    "effort": "medium",
+    "deadline": null,
+    "domain": "backend",
+    "blockedBy": null,
+    "impact": "low",
+    "tags": ["refactor", "notifications", "tech-debt"]
+  },
+  {
+    "task": "Client demo preparation",
+    "priority": "critical",
+    "effort": "medium",
+    "deadline": "2026-03-14",
+    "domain": "business",
+    "blockedBy": "Implement dashboard charts",
+    "impact": "high",
+    "tags": ["client", "demo", "deadline"]
+  }
+]

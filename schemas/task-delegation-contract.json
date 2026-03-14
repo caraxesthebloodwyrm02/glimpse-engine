@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://glimpse.cascade.ai/schemas/task-delegation-contract.json",
+  "title": "Task Delegation Contract",
+  "description": "Structured task delegation schema for agent-to-agent and human-to-agent task assignment",
+  "type": "object",
+  "required": [
+    "contractId",
+    "title",
+    "priority",
+    "delegator",
+    "delegate",
+    "createdAt"
+  ],
+  "properties": {
+    "contractId": {
+      "type": "string",
+      "pattern": "^TDC-[0-9]{8}-[A-Z0-9]{4}$",
+      "description": "Unique contract identifier (e.g., TDC-20260314-A1B2)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100,
+      "description": "Task title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed task description"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Priority level from Glimpse recommend output"
+    },
+    "effort": {
+      "type": "string",
+      "enum": ["tiny", "small", "medium", "large"],
+      "description": "Estimated effort from Glimpse"
+    },
+    "impact": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Expected impact level"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date",
+      "description": "Due date (YYYY-MM-DD)"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["backend", "frontend", "devops", "docs", "infrastructure", "security", "testing", "process", "business", "general"],
+      "description": "Technical domain"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Task categorization tags"
+    },
+    "delegator": {
+      "type": "object",
+      "required": ["name", "role"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string", "format": "email" }
+      }
+    },
+    "delegate": {
+      "type": "object",
+      "required": ["name", "role"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "agentId": { "type": "string" }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "taskId": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string", "enum": ["blocked", "unblocked", "completed"] },
+          "unblocks": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Tasks that depend on this being complete"
+          }
+        }
+      },
+      "description": "Dependency chain from Glimpse recommend"
+    },
+    "criticalPath": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of tasks in critical path"
+    },
+    "expectedOutput": {
+      "type": "object",
+      "properties": {
+        "format": { "type": "string", "enum": ["code", "document", "report", "artifact", "test", "config", "other"] },
+        "location": { "type": "string" },
+        "acceptanceCriteria": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "blocked", "completed", "cancelled"],
+      "default": "pending"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "glimpseSignal": {
+      "type": "object",
+      "description": "Glimpse engine analysis context",
+      "properties": {
+        "scenario": { "type": "string" },
+        "confidence": { "type": "number" },
+        "calibration": {
+          "type": "object",
+          "properties": {
+            "suggested": { "type": "boolean" },
+            "severity": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

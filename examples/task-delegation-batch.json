@@ -1,0 +1,256 @@
+{
+  "batchId": "BATCH-20260314-001",
+  "scenario": "recommend",
+  "createdAt": "2026-03-14T16:15:00Z",
+  "sourceSignal": {
+    "recommendation": "Fix login timeout bug",
+    "priority": "critical",
+    "unblocks": ["Migrate to new auth provider"]
+  },
+  "contracts": [
+    {
+      "contractId": "TDC-20260314-0001",
+      "title": "Fix login timeout bug",
+      "description": "Resolve authentication timeout issue in login flow causing unexpected logout after 5 minutes of inactivity",
+      "priority": "critical",
+      "effort": "small",
+      "impact": "high",
+      "deadline": "2026-03-15",
+      "domain": "backend",
+      "tags": ["bug", "auth", "urgent", "security"],
+      "delegator": { "name": "Product Owner", "role": "stakeholder" },
+      "delegate": { "name": "Backend Engineer", "role": "developer", "agentId": "agent-be-001" },
+      "dependencies": [],
+      "criticalPath": ["Fix login timeout bug", "Migrate to new auth provider"],
+      "expectedOutput": {
+        "format": "code",
+        "location": "src/auth/",
+        "acceptanceCriteria": [
+          "Login session persists for configured duration",
+          "Users are not logged out unexpectedly",
+          "Token refresh works correctly",
+          "Existing tests pass"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0002",
+      "title": "Migrate to new auth provider",
+      "description": "Migrate authentication system from current provider to new OAuth2-compliant provider",
+      "priority": "high",
+      "effort": "large",
+      "impact": "high",
+      "deadline": "2026-03-22",
+      "domain": "backend",
+      "tags": ["migration", "auth", "infrastructure"],
+      "delegator": { "name": "Tech Lead", "role": "architect" },
+      "delegate": { "name": "Backend Engineer", "role": "developer", "agentId": "agent-be-001" },
+      "dependencies": [
+        {
+          "taskId": "TDC-20260314-0001",
+          "title": "Fix login timeout bug",
+          "status": "blocked",
+          "unblocks": ["TDC-20260314-0002"]
+        }
+      ],
+      "criticalPath": ["Fix login timeout bug", "Migrate to new auth provider"],
+      "expectedOutput": {
+        "format": "code",
+        "location": "src/auth/providers/",
+        "acceptanceCriteria": [
+          "All authentication flows work with new provider",
+          "User migration completed without data loss",
+          "Rollback procedure documented"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0003",
+      "title": "Implement dashboard charts",
+      "description": "Build interactive chart components for the main dashboard using charting library",
+      "priority": "high",
+      "effort": "large",
+      "impact": "medium",
+      "deadline": "2026-03-20",
+      "domain": "frontend",
+      "tags": ["feature", "visualization", "ui"],
+      "delegator": { "name": "Product Owner", "role": "stakeholder" },
+      "delegate": { "name": "Frontend Engineer", "role": "developer", "agentId": "agent-fe-001" },
+      "dependencies": [],
+      "criticalPath": ["Implement dashboard charts", "Client demo preparation"],
+      "expectedOutput": {
+        "format": "code",
+        "location": "src/components/charts/",
+        "acceptanceCriteria": [
+          "Charts render correctly on all screen sizes",
+          "Data loads within 2 seconds",
+          "Accessible to screen readers"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0004",
+      "title": "Client demo preparation",
+      "description": "Prepare demo environment and materials for client presentation",
+      "priority": "critical",
+      "effort": "medium",
+      "impact": "high",
+      "deadline": "2026-03-14",
+      "domain": "business",
+      "tags": ["client", "demo", "deadline"],
+      "delegator": { "name": "Sales Team", "role": "stakeholder" },
+      "delegate": { "name": "Account Manager", "role": "human", "agentId": null },
+      "dependencies": [
+        {
+          "taskId": "TDC-20260314-0003",
+          "title": "Implement dashboard charts",
+          "status": "blocked",
+          "unblocks": ["TDC-20260314-0004"]
+        }
+      ],
+      "criticalPath": ["Implement dashboard charts", "Client demo preparation"],
+      "expectedOutput": {
+        "format": "artifact",
+        "location": "demos/client-2026-03-14/",
+        "acceptanceCriteria": [
+          "Demo environment accessible",
+          "All features working",
+          "Backup slides ready"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0005",
+      "title": "Write API documentation",
+      "description": "Document all REST API endpoints with request/response examples",
+      "priority": "medium",
+      "effort": "medium",
+      "impact": "medium",
+      "deadline": "2026-03-25",
+      "domain": "docs",
+      "tags": ["docs", "api"],
+      "delegator": { "name": "Tech Lead", "role": "architect" },
+      "delegate": { "name": "Technical Writer", "role": "human", "agentId": null },
+      "dependencies": [],
+      "criticalPath": [],
+      "expectedOutput": {
+        "format": "document",
+        "location": "docs/api/",
+        "acceptanceCriteria": [
+          "All endpoints documented",
+          "Code examples in 3 languages",
+          "Authentication section complete"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0006",
+      "title": "Set up monitoring alerts",
+      "description": "Configure Prometheus/Grafana alerts for critical system metrics",
+      "priority": "medium",
+      "effort": "small",
+      "impact": "medium",
+      "deadline": null,
+      "domain": "devops",
+      "tags": ["monitoring", "devops", "reliability"],
+      "delegator": { "name": "SRE Team", "role": "infrastructure" },
+      "delegate": { "name": "DevOps Engineer", "role": "developer", "agentId": "agent-ops-001" },
+      "dependencies": [],
+      "criticalPath": [],
+      "expectedOutput": {
+        "format": "config",
+        "location": "monitoring/alerts/",
+        "acceptanceCriteria": [
+          "Alerts trigger on threshold breach",
+          "Notifications sent to Slack",
+          "Dashboard shows alert history"
+        ]
+      },
+      "status": "pending"
+    },
+    {
+      "contractId": "TDC-20260314-0007",
+      "title": "Refactor notification service",
+      "description": "Modernize notification service to use event-driven architecture",
+      "priority": "low",
+      "effort": "medium",
+      "impact": "low",
+      "deadline": null,
+      "domain": "backend",
+      "tags": ["refactor", "notifications", "tech-debt"],
+      "delegator": { "name": "Tech Lead", "role": "architect" },
+      "delegate": { "name": "Backend Engineer", "role": "developer", "agentId": "agent-be-002" },
+      "dependencies": [],
+      "criticalPath": [],
+      "expectedOutput": {
+        "format": "code",
+        "location": "src/services/notification/",
+        "acceptanceCriteria": [
+          "Event-driven design implemented",
+          "Unit test coverage > 80%",
+          "Performance improved by 30%"
+        ]
+      },
+      "status": "pending"
+    }
+  ],
+  "executionOrder": [
+    "TDC-20260314-0001",
+    "TDC-20260314-0002",
+    "TDC-20260314-0003",
+    "TDC-20260314-0004",
+    "TDC-20260314-0005",
+    "TDC-20260314-0006",
+    "TDC-20260314-0007"
+  ],
+  "dependencyGraph": {
+    "TDC-20260314-0001": { "blocks": ["TDC-20260314-0002"], "blockedBy": [] },
+    "TDC-20260314-0002": { "blocks": [], "blockedBy": ["TDC-20260314-0001"] },
+    "TDC-20260314-0003": { "blocks": ["TDC-20260314-0004"], "blockedBy": [] },
+    "TDC-20260314-0004": { "blocks": [], "blockedBy": ["TDC-20260314-0003"] },
+    "TDC-20260314-0005": { "blocks": [], "blockedBy": [] },
+    "TDC-20260314-0006": { "blocks": [], "blockedBy": [] },
+    "TDC-20260314-0007": { "blocks": [], "blockedBy": [] }
+  },
+  "criticalPathAnalysis": {
+    "conflictDetected": true,
+    "conflict": "Demo Chain Impossible: 0004 (due 2026-03-14) depends on 0003 (due 2026-03-20, large effort). Cannot complete dashboard implementation before demo date.",
+    "resolution": "Use stubbed/mock data for demo 0004. Complete 0003 after demo.",
+    "phases": [
+      {
+        "phase": "Emergency Triage",
+        "date": "2026-03-14",
+        "tasks": [
+          { "id": "TDC-20260314-0004", "action": "Run demo with stubbed data", "assignee": "human" },
+          { "id": "TDC-20260314-0001", "action": "Fix login bug (critical)", "assignee": "agent-be-001" }
+        ],
+        "parallel": ["TDC-20260314-0005", "TDC-20260314-0006"]
+      },
+      {
+        "phase": "Chain Execution",
+        "startDate": "2026-03-15",
+        "chains": [
+          { "name": "Auth Chain", "sequence": ["TDC-20260314-0001", "TDC-20260314-0002"], "assignee": "agent-be-001", "deadline": "2026-03-22" },
+          { "name": "Demo Chain", "sequence": ["TDC-20260314-0003", "TDC-20260314-0004"], "assignee": "agent-fe-001", "deadline": "2026-03-20", "note": "0003 first, 0004 demo-ready after" }
+        ]
+      },
+      {
+        "phase": "Background",
+        "tasks": [
+          { "id": "TDC-20260314-0005", "deadline": "2026-03-25", "flexible": true },
+          { "id": "TDC-20260314-0006", "deadline": null, "flexible": true },
+          { "id": "TDC-20260314-0007", "deadline": null, "priority": "low", "flexible": true }
+        ]
+      }
+    ],
+    "risks": [
+      { "task": "TDC-20260314-0001", "risk": "If 0001 slips past 2026-03-15, 0002 may miss 2026-03-22 deadline" },
+      { "task": "TDC-20260314-0004", "risk": "Demo uses stubbed data - client may request actual charts" }
+    ]
+  }
+}

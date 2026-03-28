@@ -81,7 +81,18 @@ export function detectGaps(frame, ctx) {
     ).length;
     const ratio = entities.length > 0 ? coverage / entities.length : 0;
 
-    if (ratio > 0 && ratio < 0.3) {
+    // When no entities exist at all, register the dimension as entirely missing
+    if (entities.length === 0) {
+      recordGap(frame, {
+        type: GAP_TYPES.MISSING_DIMENSION,
+        description: `No entities — cannot assess ${dim} dimension coverage.`,
+        severity: 0.8,
+        affectedIds: [],
+      });
+      continue;
+    }
+
+    if (ratio >= 0 && ratio < 0.3) {
       recordGap(frame, {
         type: GAP_TYPES.LOW_COVERAGE,
         description: `Only ${Math.round(ratio * 100)}% of entities have the ${dim} dimension.`,
@@ -160,7 +171,7 @@ export function summarizeConfidence(frame) {
       ? entries.reduce((sum, e) => sum + e.confidence, 0) / entries.length
       : 0;
 
-  // Gap penalty: each gap reduces the overall score
+  // Gap penalty: each gap reduces the overall score (capped so penalty alone can't exceed avgConfidence)
   const gapPenalty = gaps.reduce((sum, g) => sum + g.severity * 0.1, 0);
 
   const overallScore = Math.max(0, Math.min(1,
@@ -172,9 +183,15 @@ export function summarizeConfidence(frame) {
     .sort((a, b) => b.severity - a.severity)
     .slice(0, 5);
 
+  // Expose gap severity distribution so callers can distinguish "slightly low" from "catastrophic"
+  const totalGapSeverity = Math.round(
+    gaps.reduce((sum, g) => sum + g.severity, 0) * 1000
+  ) / 1000;
+
   const summary = {
     overallScore,
     gapCount: gaps.length,
+    totalGapSeverity,
     topGaps,
     entryCount: entries.length,
     avgConfidence: Math.round(avgConfidence * 1000) / 1000,

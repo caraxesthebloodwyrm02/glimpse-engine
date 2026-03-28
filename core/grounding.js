@@ -83,16 +83,22 @@ export class LocalGroundingProvider extends GroundingProvider {
       basis += "+gap-filling";
     }
 
-    const avgEvConfidence = supportingEvidence.length > 0
+    const hasEvidence = supportingEvidence.length > 0;
+    const avgEvConfidence = hasEvidence
       ? supportingEvidence.reduce((s, e) => s + e.confidence, 0) / supportingEvidence.length
       : 0;
     confidence = Math.min(0.95, confidence + avgEvConfidence * 0.2);
+
+    // When no evidence at all, signal that grounding was essentially skipped
+    if (!hasEvidence && !multiSourced && !wellConnected && !fillsGap) {
+      basis = "insufficient-evidence";
+    }
 
     return {
       confirmed: confidence >= 0.5,
       confidence: Math.round(confidence * 1000) / 1000,
       basis,
-      details: `${uniqueRules.size} sources, ${entityRelations.length} relations, gap-fill: ${fillsGap}`,
+      details: `${uniqueRules.size} sources, ${entityRelations.length} relations, gap-fill: ${fillsGap}, evidence: ${supportingEvidence.length}`,
     };
   }
 }
